@@ -22,7 +22,6 @@ csv.parseFile('./files/data.csv', { headers: true })
          bank_transaction_id:data.Bank_Transaction_ID
 
         };
-    // console.log("yoyoyoyoy "+ JSON.stringify(row));
     const payment = Payment.create(row);
   })
   .on('end', () => {
