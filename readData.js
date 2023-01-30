@@ -29,7 +29,6 @@ csv.parseFile('./files/data.csv', { headers: true })
   });
 }
 module.exports = read;
-// Please note that this is a basic example. You may need to handle more edge cases like error handling, validation and etc. Also, it is not recommended to use this method to import huge CSV files as it may cause performance issues.
 
 
 
