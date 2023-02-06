@@ -3,7 +3,8 @@ const dotenv = require('dotenv');
 const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
 const app = express();
-const read = require("./readData");
+const read = require("./readData/readData");
+const createPaymentLink = require("./paytm/paytm");
 // const DB = process.env.DATABASE;
 mongoose.connect('mongodb://localhost:27017/Payment', {useNewUrlParser: true, useUnifiedTopology: true}).then(() => {
   console.log("connection successful");
@@ -25,6 +26,10 @@ app.use(bodyParser.urlencoded({
     read();
     res.write("<h1>Reading Data...");
   })
+  app.get("/payment", (req, res) => {
+    console.log("Payment Request");
+    createPaymentLink();
+  });
   app.listen(process.env.PORT||5000, function() {
     console.log("Server started on port 5000");
   });

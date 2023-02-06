@@ -9,18 +9,19 @@ const PaytmChecksum = require('./PaytmChecksum');
 var paytmParams = {};
 
 paytmParams.body = {
-    "mid"             : "YOUR_MID_HERE",
+    "mid"             : 'ysQxCV71531639598539',
     "linkType"        : "GENERIC",
     "linkDescription" : "Test Payment",
     "linkName"        : "Test",
-    "amount"          : "amount", 
+    "amount"          : '250', 
 };
 
 /*
 * Generate checksum by parameters we have in body
 * Find your Merchant Key in your Paytm Dashboard at https://dashboard.paytm.com/next/apikeys 
 */
-PaytmChecksum.generateSignature(JSON.stringify(paytmParams.body), "YOUR_MERCHANT_KEY").then(function(checksum){
+const createPaymentLink = () =>{
+PaytmChecksum.generateSignature(JSON.stringify(paytmParams.body), 'aJ33ZgAbsz5QLnQV').then(function(checksum){
 
     paytmParams.head = {
         "tokenType"   : "AES",
@@ -32,10 +33,10 @@ PaytmChecksum.generateSignature(JSON.stringify(paytmParams.body), "YOUR_MERCHANT
     var options = {
 
         /* for Staging */
-        hostname: 'securegw-stage.paytm.in',
+        // hostname: 'securegw-stage.paytm.in',
 
         /* for Production */
-        // hostname: 'securegw.paytm.in',
+        hostname: 'securegw.paytm.in',
 
         port: 443,
         path: '/link/create',
@@ -60,4 +61,6 @@ PaytmChecksum.generateSignature(JSON.stringify(paytmParams.body), "YOUR_MERCHANT
     post_req.write(post_data);
     post_req.end();
 });
+}
 
+module.exports = createPaymentLink;
